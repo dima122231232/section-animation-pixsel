@@ -6,18 +6,17 @@
 
     function showImage(index) {
         if (index === currentIndex) return;
-
         currentIndex = index;
 
-        images.forEach((b, i) => b.style.display = i === index ? "block" : "none");
+        images.forEach((b, i) =>
+            b.style.display = i === index ? "block" : "none"
+        );
 
-        if (!images[index].dataset.gridified) {
-            images[index].dataset.gridified = "1";
-            requestAnimationFrame(() =>
-                Gridify(images[index], { scroll:false, dur:0.1, amount:0.3, size:50 })
-            );
-        }
+        requestAnimationFrame(() =>
+            Gridify(images[index], {scroll: false,dur: 0.1,amount: 0.3,size: 50}));
+            numDigits.forEach(digit => {gsap.to(digit, {yPercent: -100 * index, y: -10 * index,duration: 0.35,ease: "power2.out",overwrite: "auto"});});
     }
+    
 
     ScrollTrigger.create({
         trigger: ".container",
