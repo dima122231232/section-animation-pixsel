@@ -6,20 +6,17 @@
 
     function showImage(index) {
         if (index === currentIndex) return;
+
         currentIndex = index;
 
         images.forEach((b, i) => b.style.display = i === index ? "block" : "none");
-        requestAnimationFrame(() => Gridify(images[index], { scroll: false, dur: 0.1, amount: 0.3, size: 50 }));
 
-        numDigits.forEach(digit => {
-            const digitHeight = digit.offsetHeight;
-            const gap = 10;
-            gsap.to(digit, {
-                y: -(digitHeight + gap) * index,
-                duration: 0.35,
-                ease: "power2.out"
-            });
-        });
+        if (!images[index].dataset.gridified) {
+            images[index].dataset.gridified = "1";
+            requestAnimationFrame(() =>
+                Gridify(images[index], { scroll:false, dur:0.1, amount:0.3, size:50 })
+            );
+        }
     }
 
     ScrollTrigger.create({
@@ -30,8 +27,8 @@
         onUpdate: self => {
             const progress = self.progress;
             if (progress <= 0.25) {
-                gsap.set(".anim img", { opacity: 1 });
                 showImage(0);
+                gsap.set(".img-content", { opacity: 1 });
             } else if (progress <= 0.5) showImage(1);
             else if (progress <= 0.75) showImage(2);
             else showImage(3);

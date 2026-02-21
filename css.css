@@ -212,4 +212,4 @@ p{
 }
 .img-content > .anim {display: none;}
 .img-content > .anim:nth-child(1) {display: block;}
-.anim img{opacity: 0;}
+.img-content{opacity: 0;}
